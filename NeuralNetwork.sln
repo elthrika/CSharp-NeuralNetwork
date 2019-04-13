@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.csproj", "{0F69BCDE-516A-4542-A180-2DED00A5E6FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Debug|x64.ActiveCfg = Debug|x64
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Debug|x64.Build.0 = Debug|x64
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Release|x64.ActiveCfg = Release|x64
+		{0F69BCDE-516A-4542-A180-2DED00A5E6FE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55824A36-D088-4757-953A-D64C35EE3B86}
+	EndGlobalSection
+EndGlobal

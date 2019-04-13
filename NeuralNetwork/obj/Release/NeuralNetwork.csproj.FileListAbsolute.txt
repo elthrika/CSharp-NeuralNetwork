@@ -1,0 +1,10 @@
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\bin\Release\NeuralNetwork.exe.config
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\bin\Release\NeuralNetwork.exe
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\bin\Release\NeuralNetwork.pdb
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\bin\Release\System.ValueTuple.dll
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\bin\Release\System.ValueTuple.xml
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\obj\Release\NeuralNetwork.csproj.CoreCompileInputs.cache
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\obj\Release\NeuralNetwork.csproj.CopyComplete
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\obj\Release\NeuralNetwork.exe
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\obj\Release\NeuralNetwork.pdb
+C:\Users\Max Hüttenmoser\source\repos\NeuralNetwork\NeuralNetwork\obj\Release\NeuralNetwork.csprojAssemblyReference.cache

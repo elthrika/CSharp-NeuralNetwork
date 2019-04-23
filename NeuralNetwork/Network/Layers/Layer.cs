@@ -20,12 +20,14 @@ namespace NeuralNetwork
         internal readonly LayerType Type;
         public int Size { get; protected set; }
         protected NeuronSource Source;
+        internal Network Parent;
 
         internal abstract void EvaluateAllNeurons();
         
-        protected Layer(LayerType type, NeuronSource source)
+        protected Layer(LayerType type, Network parent)
         {
-            Source = source;
+            Parent = parent;
+            Source = parent.Source;
             Type = type;
         }
 

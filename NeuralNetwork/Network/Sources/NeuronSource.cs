@@ -8,12 +8,12 @@ namespace NeuralNetwork
 {
     internal interface NeuronSource
     {
-        ActivationNeuron GetActivationNeuron(ActivationFunctionType funtype, bool scale = true, long id = -1);
-        BiasNeuron GetBiasNeuron(double constantVal = 1.0d, long id = -1);
-        ConvolutionNeuron GetConvolutionNeuron(ConvolutionLayer myLayer, long id = -1);
-        InputNeuron GetInputNeuron(long id = -1);
-        PoolingNeuron GetPoolingNeuron(long id = -1);
-        SoftMaxNeuron GetSoftMaxNeuron(long id = -1);
+        ActivationNeuron GetActivationNeuron(Layer parent, ActivationFunctionType funtype, bool scale = true, long id = -1);
+        BiasNeuron GetBiasNeuron(Layer parent, double constantVal = 1.0d, long id = -1);
+        ConvolutionNeuron GetConvolutionNeuron(Layer parent, long id = -1);
+        InputNeuron GetInputNeuron(Layer parent, long id = -1);
+        PoolingNeuron GetPoolingNeuron(Layer parent, long id = -1);
+        SoftMaxNeuron GetSoftMaxNeuron(Layer parent, long id = -1);
 
         Edge MakeEdge(double weight, Neuron origin, Neuron destination);
         Edge MakeEdge(double weight, long originID, long destinationID);

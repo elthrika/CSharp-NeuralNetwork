@@ -7,7 +7,7 @@ namespace NeuralNetwork
 {
     internal class ReLuLayer : Layer
     {
-        public ReLuLayer(Layer previousLayer, NeuronSource s) : base(LayerType.ReLu, s)
+        public ReLuLayer(Layer previousLayer, Network n) : base(LayerType.ReLu, n)
         {
             Size = previousLayer.Size;
             AllNeurons = new ActivationNeuron[Size];
@@ -15,7 +15,7 @@ namespace NeuralNetwork
             IReadOnlyList<Neuron> previousNeurons = previousLayer.GetNeurons();
             for (int i = 0; i < Size; i++)
             {
-                AllNeurons[i] = Source.GetActivationNeuron(ActivationFunctionType.ReLu);
+                AllNeurons[i] = Source.GetActivationNeuron(this, ActivationFunctionType.ReLu);
                 Edge e = Source.MakeEdge(1, previousNeurons[i], AllNeurons[i]);
             }
         }

@@ -87,10 +87,10 @@ namespace NeuralNetwork
 
         static void TrainMNIST()
         {
-            Network nn = new Network(Network.LossFunctionType.Logistical);
+            Network nn = new Network(Network.LossFunctionType.Logistical, 0.08);
             nn.AddInputLayer(28 * 28 * 1);
-            var ext = nn.AddConvolutionLayer(n_filters: 3, filtersize: 3, stride: 1, padding: 1, dims: (28, 28, 1));
-            ext = nn.AddPoolingLayer(2, ext);
+            var ext = nn.AddConvolutionLayer(n_filters: 5, filtersize: 3, stride: 1, padding: 1, dims: (28, 28, 1));
+            //ext = nn.AddPoolingLayer(2, ext);
             //ext = nn.AddConvolutionLayer(n_filters: 2, filtersize: 3, stride: 1, padding: 1, dims: ext);
             nn.AddFullyConnecterLayer(10, ActivationFunctionType.Tanh);
             nn.AddSoftMaxLayer();
@@ -106,14 +106,20 @@ namespace NeuralNetwork
             nn.Print();
             nn.SaveAsBinary("MNIST89.ann");
 
+            Network nn2 = nn.GetCopy();
             int accurate = 0; int total = 0;
+            int accurate2 = 0;
             foreach (var (l, i) in ReadMNISTData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte"))
             {
                 nn.SetInput(i);
                 double[] res = nn.ForwardPass();
+                double[] res2 = nn.ForwardPass();
                 int label = l.ToList().IndexOf(l.Max());
                 int guess = res.ToList().IndexOf(res.Max());
+                int guess2 = res2.ToList().IndexOf(res2.Max());
                 accurate += (label == guess).CompareTo(false);
+                accurate2 += (label == guess2).CompareTo(false);
+
                 Console.ForegroundColor = label == guess ? ConsoleColor.Green : ConsoleColor.Red;
                 Console.WriteLine($"Guess: {guess}\t{Helper.StringyfyVector(res)}\nActual:{label}\t{Helper.StringyfyVector(l)}");
                 total++;
@@ -121,29 +127,35 @@ namespace NeuralNetwork
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{accurate} / {total} correct");
+            Console.WriteLine($"{accurate2} / {total} correct");
         }
 
         static void TestMNISTFromSaved()
         {
             Network nn = Network.ReadFromFileBinary("MNIST89.ann");
-            Console.ReadKey();
-            nn.Print();
-            Console.ReadKey();
+            Network nn2 = nn.GetCopy();
             int accurate = 0; int total = 0;
+            int accurate2 = 0;
             foreach (var (l, i) in ReadMNISTData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte"))
             {
                 nn.SetInput(i);
                 double[] res = nn.ForwardPass();
+                double[] res2 = nn.ForwardPass();
                 int label = l.ToList().IndexOf(l.Max());
                 int guess = res.ToList().IndexOf(res.Max());
+                int guess2 = res2.ToList().IndexOf(res2.Max());
                 accurate += (label == guess).CompareTo(false);
+                accurate2 += (label == guess2).CompareTo(false);
+
                 Console.ForegroundColor = label == guess ? ConsoleColor.Green : ConsoleColor.Red;
-                Console.WriteLine($"Guess: {guess}\t{res.StringyfyVector()}\nActual:{label}\t{l.StringyfyVector()}");
+                Console.WriteLine($"Guess: {guess}\t{Helper.StringyfyVector(res)}\nActual:{label}\t{Helper.StringyfyVector(l)}");
                 total++;
             }
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{accurate} / {total} correct");
+            Console.WriteLine($"{accurate2} / {total} correct");
+
         }
 
         static IEnumerable<(double[], double[])> ReadMNISTData(string labelfile, string imagefile)

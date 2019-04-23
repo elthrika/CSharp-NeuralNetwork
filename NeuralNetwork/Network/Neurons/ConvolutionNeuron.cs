@@ -6,17 +6,11 @@ namespace NeuralNetwork
     internal class ConvolutionNeuron : Neuron
     {
         internal double DeltaO = double.NaN;
-        readonly ConvolutionLayer Layer;
 
-        public ConvolutionNeuron(ConvolutionLayer myLayer, long id) : base(NeuronType.ConvolutionNeuron, id)
+        public ConvolutionNeuron(Layer parent, long id) : base(NeuronType.ConvolutionNeuron, parent, id)
         {
-            Layer = myLayer;
         }
 
-        private ConvolutionNeuron(ConvolutionNeuron prototype) : base(prototype.Type, prototype.ID)
-        {
-            Layer = prototype.Layer;
-        }
 
         internal override void ResetDelta()
         {
@@ -28,7 +22,7 @@ namespace NeuralNetwork
         {
             if (caller == null) throw new ArgumentNullException();
             if (caller == this) throw new ArgumentException();
-            return Layer.GetDeltaForNeuron(caller);
+            return ((ConvolutionLayer)Parent).GetDeltaForNeuron(caller);
         }
 
         internal override void Backpropagate(double targetvalue)
@@ -36,7 +30,7 @@ namespace NeuralNetwork
             DeltaO = 0;
             if (outEdges.Count == 0)
             {
-                DeltaO = Network.dNetworkLossFunction(targetvalue, Value);
+                DeltaO = Parent.Parent.dNetworkLossFunction(targetvalue, Value);
             }
             else
             {

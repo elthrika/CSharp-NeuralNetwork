@@ -27,20 +27,20 @@ namespace NeuralNetwork
 
         #region INIT
 
-        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, (int width, int heigth, int depth) inputVolumeDims, NeuronSource s)
-            : base(LayerType.Convolutional, s)
+        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, (int width, int heigth, int depth) inputVolumeDims, Network n)
+            : base(LayerType.Convolutional, n)
         {
             Init(previouslayer, n_filters, filtersize, stride, padding, inputVolumeDims);
         }
 
-        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, (int width, int heigth) inputVolumeDims, NeuronSource s)
-            : base(LayerType.Convolutional, s)
+        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, (int width, int heigth) inputVolumeDims, Network n)
+            : base(LayerType.Convolutional, n)
         {
             Init(previouslayer, n_filters, filtersize, stride, padding, (inputVolumeDims.width, inputVolumeDims.heigth, 1));
         }
 
-        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, NeuronSource s)
-            : base(LayerType.Convolutional, s)
+        internal ConvolutionLayer(Layer previouslayer, int n_filters, int filtersize, int stride, int padding, Network n)
+            : base(LayerType.Convolutional, n)
         {
             // if no dimensions are given, assume a square, two dimensional (x, x, 1) input volume
             int sidelength = (int)Math.Sqrt(previouslayer.Size);
@@ -100,7 +100,7 @@ namespace NeuralNetwork
                     }
                 }
             }
-            extendedInputs = Helper.AddXYPadding(extendedInputs, padding, () => Source.GetBiasNeuron(0));
+            extendedInputs = Helper.AddXYPadding(extendedInputs, padding, () => Source.GetBiasNeuron(this, 0));
 
             MakeEdgesToPreviousLayer(previouslayer);
         }

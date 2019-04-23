@@ -20,36 +20,36 @@ namespace NeuralNetwork
             Edges = new List<Edge>();
         }
 
-        public ActivationNeuron GetActivationNeuron(ActivationFunctionType funtype, bool scale = true, long id = -1)
+        public ActivationNeuron GetActivationNeuron(Layer parent, ActivationFunctionType funtype, bool scale = true, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.ActivationNeuron)
                 throw new Exception($"ActivationNeuron::ReadFromFile {type} != ActivationNeuron");
             long ID = Reader.ReadInt64();
-            var n = new ActivationNeuron(funtype, scale, GetID(ID));
+            var n = new ActivationNeuron(parent, funtype, scale, GetID(ID));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public BiasNeuron GetBiasNeuron(double constantVal = 1, long id = -1)
+        public BiasNeuron GetBiasNeuron(Layer parent, double constantVal = 1, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.BiasNeuron)
                 throw new Exception($"BiasNeuron::ReadFromFile {type} != BiasNeuron");
             long ID = Reader.ReadInt64();
             double val = Reader.ReadDouble();
-            var n = new BiasNeuron(val, ID);
+            var n = new BiasNeuron(parent, val, ID);
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public ConvolutionNeuron GetConvolutionNeuron(ConvolutionLayer myLayer, long id = -1)
+        public ConvolutionNeuron GetConvolutionNeuron(Layer parent, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.ConvolutionNeuron)
                 throw new Exception($"ConvolutionNeuron::ReadFromFile {type} != ConvolutionNeuron");
             long ID = Reader.ReadInt64();
-            var n = new ConvolutionNeuron(myLayer, GetID(ID));
+            var n = new ConvolutionNeuron(parent, GetID(ID));
             AllGenerated.Add(n.ID, n);
             return n;
         }
@@ -70,35 +70,35 @@ namespace NeuralNetwork
             return id > 0 ? id : curID;
         }
 
-        public InputNeuron GetInputNeuron(long id = -1)
+        public InputNeuron GetInputNeuron(Layer parent, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.InputNeuron)
                 throw new Exception($"InputNeuron::ReadFromFile {type} != InputNeuron");
             long ID = Reader.ReadInt64();
-            var n = new InputNeuron(GetID(ID));
+            var n = new InputNeuron(parent, GetID(ID));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public PoolingNeuron GetPoolingNeuron(long id = -1)
+        public PoolingNeuron GetPoolingNeuron(Layer parent, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.PoolingNeuron)
                 throw new Exception($"PoolingNeuron::ReadFromFile {type} != PoolingNeuron");
             long ID = Reader.ReadInt64();
-            var n = new PoolingNeuron(GetID(ID));
+            var n = new PoolingNeuron(parent, GetID(ID));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public SoftMaxNeuron GetSoftMaxNeuron(long id = -1)
+        public SoftMaxNeuron GetSoftMaxNeuron(Layer parent, long id = -1)
         {
             Neuron.NeuronType type = (Neuron.NeuronType)Reader.ReadInt32();
             if (type != Neuron.NeuronType.SoftMaxNeuron)
                 throw new Exception($"SoftMaxNeuron::ReadFromFile {type} != SoftMaxNeuron");
             long ID = Reader.ReadInt64();
-            var n = new SoftMaxNeuron(GetID(ID));
+            var n = new SoftMaxNeuron(parent, GetID(ID));
             AllGenerated.Add(n.ID, n);
             return n;
         }

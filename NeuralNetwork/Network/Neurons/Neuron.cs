@@ -24,9 +24,11 @@ namespace NeuralNetwork
 
         public readonly long ID;
         internal NeuronType Type;
+        internal readonly Layer Parent;
 
-        internal Neuron(NeuronType type, long id)
+        internal Neuron(NeuronType type, Layer parent, long id)
         {
+            Parent = parent;
             Type = type;
             ID = id;
         }
@@ -43,7 +45,7 @@ namespace NeuralNetwork
             if(outEdges.Count == 0)
             {
                 //output layer
-                _delta = Network.dNetworkLossFunction(targetvalue, Value) * DerivateValue;
+                _delta = Parent.Parent.dNetworkLossFunction(targetvalue, Value) * DerivateValue;
             }
             else
             {

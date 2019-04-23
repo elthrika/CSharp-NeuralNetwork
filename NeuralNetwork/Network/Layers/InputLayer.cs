@@ -6,13 +6,13 @@ namespace NeuralNetwork
     {
         internal double[] inputValues;
 
-        public InputLayer(int size, NeuronSource s) : base(LayerType.InputLayer, s)
+        public InputLayer(int size, Network n) : base(LayerType.InputLayer, n)
         {
             Size = size;
             AllNeurons = new Neuron[Size];
             for (int i = 0; i < Size; i++)
             {
-                AllNeurons[i] = Source.GetInputNeuron();
+                AllNeurons[i] = Source.GetInputNeuron(this);
             }
         }
 

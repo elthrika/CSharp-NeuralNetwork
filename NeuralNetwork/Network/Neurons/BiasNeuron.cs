@@ -6,7 +6,7 @@ namespace NeuralNetwork
     internal class BiasNeuron : Neuron
     {
 
-        public BiasNeuron(double constantVal, long id) : base(NeuronType.BiasNeuron, id)
+        public BiasNeuron(Layer parent, double constantVal, long id) : base(NeuronType.BiasNeuron, parent, id)
         {
             Value = constantVal;
         }

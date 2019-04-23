@@ -32,7 +32,7 @@ namespace NeuralNetwork.IO
             }
             foreach (var prototype in protos)
             {
-                nn.Add(prototype.ToLayer(nn.Source, nn.GetLayers().FirstOrDefault()));
+                nn.Add(prototype.ToLayer(nn, nn.GetLayers().FirstOrDefault()));
             }
 
             while(br.BaseStream.Position < br.BaseStream.Length)
@@ -179,24 +179,24 @@ namespace NeuralNetwork.IO
                 return (T)fields[name];
             }
 
-            public Layer ToLayer(NeuronSource source, Layer previousLayer)
+            public Layer ToLayer(Network nn, Layer previousLayer)
             {
                 switch (type)
                 {
                     case Layer.LayerType.FullyConnected:
-                        return new FullyConnectedLayer(GetField<int>("Size"), previousLayer, source, GetField<ActivationFunctionType>("funtype"), GetField<bool>("Scaling"));
+                        return new FullyConnectedLayer(GetField<int>("Size"), previousLayer, nn, GetField<ActivationFunctionType>("funtype"), GetField<bool>("Scaling"));
                     case Layer.LayerType.InputLayer:
-                        return new InputLayer(GetField<int>("Size"), source);
+                        return new InputLayer(GetField<int>("Size"), nn);
                     case Layer.LayerType.SoftMax:
-                        return new SoftMaxLayer(previousLayer, source);
+                        return new SoftMaxLayer(previousLayer, nn);
                     case Layer.LayerType.Pooling:
-                        return new PoolingLayer(previousLayer, GetField<int>("Tessellation"), (GetField<int>("InputWidth"), GetField<int>("InputHeight"), GetField<int>("InputDepth")), source);
+                        return new PoolingLayer(previousLayer, GetField<int>("Tessellation"), (GetField<int>("InputWidth"), GetField<int>("InputHeight"), GetField<int>("InputDepth")), nn);
                     case Layer.LayerType.Convolutional:
                         return new ConvolutionLayer(previousLayer, 
                             GetField<int>("N_filters"), GetField<int>("Filtersize"), GetField<int>("Stride"), GetField<int>("Padding"), 
-                            (GetField<int>("InputWidth"), GetField<int>("InputHeight"), GetField<int>("InputDepth")), source);
+                            (GetField<int>("InputWidth"), GetField<int>("InputHeight"), GetField<int>("InputDepth")), nn);
                     case Layer.LayerType.ReLu:
-                        return new ReLuLayer(previousLayer, source);
+                        return new ReLuLayer(previousLayer, nn);
                     default:
                         throw new ArgumentException($"Unrecognized Layer-Type: {type}");
                 }

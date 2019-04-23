@@ -18,32 +18,11 @@ namespace NeuralNetwork
         private readonly ActivationFunction dfun;
         private readonly bool scaling;
 
-        public ActivationNeuron(ActivationFunctionType funtype, bool scale, long id) : base(NeuronType.ActivationNeuron, id)
+        public ActivationNeuron(Layer parent, ActivationFunctionType funtype, bool scale, long id) : base(NeuronType.ActivationNeuron, parent, id)
         {
             scaling = scale;
             ActivationFunType = funtype;
             switch (funtype)
-            {
-                case ActivationFunctionType.ReLu:
-                    fun = ReLu;
-                    dfun = dReLu;
-                    break;
-                case ActivationFunctionType.Sigmoid:
-                    fun = Sigmoid;
-                    dfun = dSigmoid;
-                    break;
-                case ActivationFunctionType.Tanh:
-                    fun = Math.Tanh;
-                    dfun = dTanh;
-                    break;
-            }
-        }
-
-        private ActivationNeuron(ActivationNeuron prototype) : base(prototype.Type, prototype.ID)
-        {
-            scaling = prototype.scaling;
-            ActivationFunType = prototype.ActivationFunType;
-            switch (ActivationFunType)
             {
                 case ActivationFunctionType.ReLu:
                     fun = ReLu;

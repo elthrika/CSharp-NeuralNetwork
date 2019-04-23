@@ -5,12 +5,7 @@ namespace NeuralNetwork
 {
     internal class InputNeuron : Neuron
     {
-        internal InputNeuron(long id) : base(NeuronType.InputNeuron, id)
-        {
-
-        }
-
-        private InputNeuron(InputNeuron prototype) : base(prototype.Type, prototype.ID)
+        internal InputNeuron(Layer parent, long id) : base(NeuronType.InputNeuron, parent, id)
         {
 
         }

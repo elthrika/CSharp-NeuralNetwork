@@ -7,7 +7,7 @@ namespace NeuralNetwork
     {
         internal int MaxIdx { get; set; }
 
-        internal PoolingNeuron(long id) : base(NeuronType.PoolingNeuron, id)
+        internal PoolingNeuron(Layer parent, long id) : base(NeuronType.PoolingNeuron, parent, id)
         {
 
         }
@@ -26,7 +26,7 @@ namespace NeuralNetwork
             _delta = 0;
             if (outEdges.Count == 0)
             {
-                _delta = Network.dNetworkLossFunction(targetvalue, Value);
+                _delta = Parent.Parent.dNetworkLossFunction(targetvalue, Value);
             }
             else
             {

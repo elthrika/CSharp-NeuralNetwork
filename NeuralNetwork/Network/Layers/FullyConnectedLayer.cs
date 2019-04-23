@@ -8,8 +8,8 @@ namespace NeuralNetwork
 
         public bool Scaling { get; private set; }
 
-        public FullyConnectedLayer(int size, Layer previousLayer, NeuronSource s, ActivationFunctionType functionType = ActivationFunctionType.Tanh, bool scale = true) 
-            : base(LayerType.FullyConnected, s)
+        public FullyConnectedLayer(int size, Layer previousLayer, Network n, ActivationFunctionType functionType = ActivationFunctionType.Tanh, bool scale = true) 
+            : base(LayerType.FullyConnected, n)
         {
             Scaling = scale;
 
@@ -19,9 +19,9 @@ namespace NeuralNetwork
 
             for (int i = 0; i < size; i++)
             {
-                AllNeurons[i] = Source.GetActivationNeuron(functionType, Scaling);
+                AllNeurons[i] = Source.GetActivationNeuron(this, functionType, Scaling);
             }
-            BiasNeuron bias = Source.GetBiasNeuron();
+            BiasNeuron bias = Source.GetBiasNeuron(this);
             for (int i = 0; i < Size; i++)
             {
                 Edge e = Source.MakeEdge(Helper.Random, bias, AllNeurons[i]);

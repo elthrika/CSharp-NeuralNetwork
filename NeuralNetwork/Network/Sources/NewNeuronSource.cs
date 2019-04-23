@@ -23,44 +23,44 @@ namespace NeuralNetwork
             return Edges.AsReadOnly();
         }
 
-        public ActivationNeuron GetActivationNeuron(ActivationFunctionType funtype, bool scale = true, long id = -1)
+        public ActivationNeuron GetActivationNeuron(Layer parent, ActivationFunctionType funtype, bool scale = true, long id = -1)
         {
-            var n = new ActivationNeuron(funtype, scale, GetID(id));
+            var n = new ActivationNeuron(parent, funtype, scale, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public BiasNeuron GetBiasNeuron(double constantVal = 1, long id = -1)
+        public BiasNeuron GetBiasNeuron(Layer parent, double constantVal = 1, long id = -1)
         {
-            var n = new BiasNeuron(constantVal, GetID(id));
+            var n = new BiasNeuron(parent, constantVal, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public ConvolutionNeuron GetConvolutionNeuron(ConvolutionLayer myLayer, long id = -1)
+        public ConvolutionNeuron GetConvolutionNeuron(Layer parent, long id = -1)
         {
-            var n = new ConvolutionNeuron(myLayer, GetID(id));
+            var n = new ConvolutionNeuron(parent, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public InputNeuron GetInputNeuron(long id = -1)
+        public InputNeuron GetInputNeuron(Layer parent, long id = -1)
         {
-            var n = new InputNeuron(GetID(id));
+            var n = new InputNeuron(parent, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public PoolingNeuron GetPoolingNeuron(long id = -1)
+        public PoolingNeuron GetPoolingNeuron(Layer parent, long id = -1)
         {
-            var n = new PoolingNeuron(GetID(id));
+            var n = new PoolingNeuron(parent, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }
 
-        public SoftMaxNeuron GetSoftMaxNeuron(long id = -1)
+        public SoftMaxNeuron GetSoftMaxNeuron(Layer parent, long id = -1)
         {
-            var n = new SoftMaxNeuron(GetID(id));
+            var n = new SoftMaxNeuron(parent, GetID(id));
             AllGenerated.Add(n.ID, n);
             return n;
         }

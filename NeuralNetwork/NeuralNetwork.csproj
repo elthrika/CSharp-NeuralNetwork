@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\Genetics.cs" />
     <Compile Include="IO\Write\EdgeWriter.cs" />
     <Compile Include="IO\Write\BinaryEdgeWriter.cs" />
     <Compile Include="IO\Read\BinaryNetworkReader.cs" />

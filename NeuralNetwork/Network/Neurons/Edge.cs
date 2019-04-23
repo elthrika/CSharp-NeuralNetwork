@@ -19,7 +19,7 @@
         internal void UpdateWeight(double targetvalue)
         {
             double delta = Destination.GetDelta(targetvalue, Destination);
-            double diffw = -Network.LEARNING_RATE * delta * Origin.Value;
+            double diffw = -Origin.Parent.Parent.LEARNING_RATE * delta * Origin.Value;
 
             Weight += diffw;
         }

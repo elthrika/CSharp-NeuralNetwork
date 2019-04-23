@@ -11,7 +11,7 @@ namespace NeuralNetwork
     {
         private double[,] jacobian;
 
-        public SoftMaxLayer(Layer previousLayer, NeuronSource s) : base(LayerType.SoftMax, s)
+        public SoftMaxLayer(Layer previousLayer, Network n) : base(LayerType.SoftMax, n)
         {
             Size = previousLayer.Size;
             AllNeurons = new SoftMaxNeuron[Size];
@@ -19,7 +19,7 @@ namespace NeuralNetwork
             IReadOnlyList<Neuron> previousNeurons = previousLayer.GetNeurons();
             for (int i = 0; i < Size; i++)
             {
-                AllNeurons[i] = Source.GetSoftMaxNeuron();
+                AllNeurons[i] = Source.GetSoftMaxNeuron(this);
                 Edge e = Source.MakeEdge(1, previousNeurons[i], AllNeurons[i]);
             }
         }
@@ -69,7 +69,7 @@ namespace NeuralNetwork
                     double delta = 0;
                     for (int c = 0; c < Size; c++)
                     {
-                        delta += jacobian[i, c] * Network.dNetworkLossFunction(smn.GetOutEdges()[0].Destination.GetDelta(0, smn), AllNeurons[c].Value);
+                        delta += jacobian[i, c] * Parent.dNetworkLossFunction(smn.GetOutEdges()[0].Destination.GetDelta(0, smn), AllNeurons[c].Value);
                     }
                     smn.SetDelta(delta);
                 }
@@ -80,7 +80,7 @@ namespace NeuralNetwork
                     double delta = 0;
                     for (int c = 0; c < Size; c++)
                     {
-                        delta += jacobian[i, c] * Network.dNetworkLossFunction(smn.GetOutEdges()[0].Destination.GetDelta(0, smn), AllNeurons[c].Value);
+                        delta += jacobian[i, c] * Parent.dNetworkLossFunction(smn.GetOutEdges()[0].Destination.GetDelta(0, smn), AllNeurons[c].Value);
                     }
                     smn.SetDelta(delta);
                 });
@@ -95,7 +95,7 @@ namespace NeuralNetwork
                     double delta = 0;
                     for (int c = 0; c < Size; c++)
                     {
-                        delta += jacobian[i, c] * Network.dNetworkLossFunction(targetvalues[c], AllNeurons[c].Value);
+                        delta += jacobian[i, c] * Parent.dNetworkLossFunction(targetvalues[c], AllNeurons[c].Value);
                     }
                     //Console.WriteLine($"Setting delta to: {delta}");
                     smn.SetDelta(delta);
@@ -108,7 +108,7 @@ namespace NeuralNetwork
                     double delta = 0;
                     for (int c = 0; c < Size; c++)
                     {
-                        delta += jacobian[i, c] * Network.dNetworkLossFunction(targetvalues[c], AllNeurons[c].Value);
+                        delta += jacobian[i, c] * Parent.dNetworkLossFunction(targetvalues[c], AllNeurons[c].Value);
                     }
                     //Console.WriteLine($"Setting delta to: {delta}");
                     smn.SetDelta(delta);

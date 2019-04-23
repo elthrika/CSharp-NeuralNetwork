@@ -9,20 +9,20 @@ namespace NeuralNetwork
         public (int width, int height, int depth) Dims { get; private set; }
         public (int width, int height, int depth) InputDims { get; private set; }
 
-        public PoolingLayer(Layer previousLayer, int tessellation, NeuronSource s) : base(LayerType.Pooling, s)
+        public PoolingLayer(Layer previousLayer, int tessellation, Network n) : base(LayerType.Pooling, n)
         {
             Tessellation = tessellation;
             var sqrt = (int)Math.Sqrt(previousLayer.GetNeurons().Count);
             Init(previousLayer, (sqrt, sqrt, 1));
         }
 
-        public PoolingLayer(Layer previousLayer, int tessellation, (int width, int height) dims, NeuronSource s) : base(LayerType.Pooling, s)
+        public PoolingLayer(Layer previousLayer, int tessellation, (int width, int height) dims, Network n) : base(LayerType.Pooling, n)
         {
             Tessellation = tessellation;
             Init(previousLayer, (dims.width, dims.height, 1));
         }
 
-        public PoolingLayer(Layer previousLayer, int tessellation, (int width, int height, int depth) dims, NeuronSource s) : base(LayerType.Pooling, s)
+        public PoolingLayer(Layer previousLayer, int tessellation, (int width, int height, int depth) dims, Network n) : base(LayerType.Pooling, n)
         {
             Tessellation = tessellation;
             Init(previousLayer, dims);
@@ -52,7 +52,7 @@ namespace NeuralNetwork
 
             for (int i = 0; i < Size; i++)
             {
-                AllNeurons[i] = Source.GetPoolingNeuron();
+                AllNeurons[i] = Source.GetPoolingNeuron(this);
             }
 
             for (int d = 0; d < dims.depth; d++)
@@ -72,7 +72,7 @@ namespace NeuralNetwork
                             Neuron outneuron;
                             if (clusterStartIdx + r * stride + c < 0 || clusterStartIdx + r * stride + c >= prevNeurons.Count)
                             {
-                                outneuron = Source.GetBiasNeuron(double.NegativeInfinity);
+                                outneuron = Source.GetBiasNeuron(this, double.NegativeInfinity);
                             }
                             else
                             {
